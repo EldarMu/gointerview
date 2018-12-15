@@ -1,6 +1,12 @@
 // Package gointerview is a collection of interview problems solved in go
 package gointerview
 
+import (
+	dataStructs "gointerview/datastructs"
+)
+
+type TreeNode = dataStructs.TreeNode
+
 // ShortestToChar is a function that, given a string and a character,
 // returns an int arr that shows the distance
 // to the nearest instance of that character for each char in string
@@ -44,10 +50,10 @@ func ShortestToChar(s string, c byte) []int {
 	return r
 }
 
-//given two strings as a series of characters with # representing backspace (prev char was deleted)
-//check if the two strings are identical
-//https://leetcode.com/problems/backspace-string-compare/
-//0 ms, beats 100% of go submissions
+// given two strings as a series of characters with # representing backspace (prev char was deleted)
+// check if the two strings are identical
+// https://leetcode.com/problems/backspace-string-compare/
+// 0 ms, beats 100% of go submissions
 func backspaceCompare(S string, T string) bool {
 	sIndex := len(S) - 1
 	tIndex := len(T) - 1
@@ -85,8 +91,8 @@ func getIndOfNextChar(S string, index int) int {
 	return index
 }
 
-//remove duplicates from sorted array in-place, return size of sub-array with sorted vals
-//60 ms for 160 test cases, beats 100% of golang submissions
+// remove duplicates from sorted array in-place, return size of sub-array with sorted vals
+// 60 ms for 160 test cases, beats 100% of golang submissions
 func removeDuplicates(nums []int) int {
 	nextWrite := 1
 	for i := 1; i < len(nums); i++ {
@@ -96,4 +102,24 @@ func removeDuplicates(nums []int) int {
 		}
 	}
 	return nextWrite
+}
+
+// given a binary tree of int values, return the sum of the left leaves
+// beats 100% of golang submissions (0 ms for 102 unit tests)
+func sumOfLeftLeaves(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	sum := 0
+	if root.Left != nil {
+		if root.Left.Left == nil && root.Left.Right == nil {
+			sum += root.Left.Val
+		} else {
+			sum += sumOfLeftLeaves(root.Left)
+		}
+	}
+	if root.Right != nil {
+		sum += sumOfLeftLeaves(root.Right)
+	}
+	return sum
 }

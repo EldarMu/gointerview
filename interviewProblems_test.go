@@ -56,5 +56,36 @@ func TestRemoveDuplicates(t *testing.T) {
 			t.Error("incorrectly sorted at index", i, "expected", expected[i], "but got", input[i])
 		}
 	}
+}
 
+func TestSumOfLeftLeaf(t *testing.T) {
+	root := TreeNode{Val: 3}
+	left := TreeNode{Val: 9}
+	right := TreeNode{Val: 20}
+	root.Left = &left
+	root.Right = &right
+	rleft := TreeNode{Val: 15}
+	rright := TreeNode{Val: 7}
+	root.Right.Left = &rleft
+	root.Right.Right = &rright
+
+	expected := 24
+	result := sumOfLeftLeaves(&root)
+	if expected != result {
+		t.Error("incorrect sum of left leaves, expected", expected, "but got", result)
+	}
+
+	if sumOfLeftLeaves(nil) != 0 {
+		t.Error("null root should return 0")
+	}
+
+	lright := TreeNode{Val: 4}
+	left.Right = &lright
+	lrleft := TreeNode{Val: -4}
+	lright.Left = &lrleft
+	expected = 11
+	result = sumOfLeftLeaves(&root)
+	if expected != result {
+		t.Error("incorrect sum of left leaves, expected", expected, "but got", result)
+	}
 }
