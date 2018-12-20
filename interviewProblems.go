@@ -7,13 +7,13 @@ import (
 
 type TreeNode = dataStructs.TreeNode
 
-// ShortestToChar is a function that, given a string and a character,
+// shortestToChar is a function that, given a string and a character,
 // returns an int arr that shows the distance
 // to the nearest instance of that character for each char in string
 // we are guaranteed at least a single instance of the requested character
 // https://leetcode.com/problems/shortest-distance-to-a-character/
 // 4 ms, beats 100% of golang submissions
-func ShortestToChar(s string, c byte) []int {
+func shortestToChar(s string, c byte) []int {
 	fromLeft := make([]int, len(s))
 	fromRight := make([]int, len(s))
 	lastLeftMatch := -1
@@ -122,4 +122,29 @@ func sumOfLeftLeaves(root *TreeNode) int {
 		sum += sumOfLeftLeaves(root.Right)
 	}
 	return sum
+}
+
+//redundant directions problem
+//https://www.codewars.com/kata/directions-reduction/train/go
+//no performance data from codewars
+func dirReduc(inp []string) []string {
+	revDir := map[string]string{
+		"NORTH": "SOUTH",
+		"SOUTH": "NORTH",
+		"EAST":  "WEST",
+		"WEST":  "EAST",
+	}
+
+	res := make([]string, 0, len(inp))
+	lastWrite := -1
+	for _, s := range inp {
+		if lastWrite > -1 && s == revDir[res[lastWrite]] {
+			res = res[:len(res)-1]
+			lastWrite--
+		} else {
+			res = append(res, s)
+			lastWrite++
+		}
+	}
+	return res
 }

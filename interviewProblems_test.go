@@ -10,7 +10,7 @@ import (
 //
 func TestShortestToChar(t *testing.T) {
 	expected := [12]int{3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0}
-	var result = ShortestToChar("loveleetcode", 'e')
+	var result = shortestToChar("loveleetcode", 'e')
 	for i := 0; i < len(result); i++ {
 		if expected[i] != result[i] {
 			t.Error("Incorrect value, expected", expected[i], "but got", result[i], "at index", i)
@@ -87,5 +87,33 @@ func TestSumOfLeftLeaf(t *testing.T) {
 	result = sumOfLeftLeaves(&root)
 	if expected != result {
 		t.Error("incorrect sum of left leaves, expected", expected, "but got", result)
+	}
+}
+
+func TestDirReduc(t *testing.T) {
+	var inp []string
+	var expec []string
+	var res []string
+
+	inp = []string{"NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "NORTH"}
+	expec = []string{"NORTH"}
+	res = dirReduc(inp)
+	compareArrResult(expec, res, t)
+
+	inp = []string{"SOUTH", "SOUTH", "WEST", "NORTH", "WEST"}
+	expec = []string{"SOUTH", "SOUTH", "WEST", "NORTH", "WEST"}
+	res = dirReduc(inp)
+	compareArrResult(expec, res, t)
+}
+
+func compareArrResult(expec, res []string, t *testing.T) {
+	if len(expec) != len(res) {
+		t.Error("size mismatch between expected array size", len(expec), "and result size", len(res))
+	} else {
+		for i := range expec {
+			if expec[i] != res[i] {
+				t.Error("result mismatch at index", i, "expected", expec[i], "got", res[i])
+			}
+		}
 	}
 }
