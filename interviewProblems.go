@@ -164,3 +164,44 @@ func numJewelsInStones(J string, S string) int {
 	}
 	return res
 }
+
+//given a 2d array of positive ints, find by how much all the elements in the array can be increased
+//while preserving the maximum value of each row and column
+//https://leetcode.com/problems/max-increase-to-keep-city-skyline/description/
+//this solution assumes a non-jagged slice of slices
+//beats 100% of go solutions at 8 ms for 133 test cases
+func maxIncreaseKeepingSkyline(grid [][]int) int {
+	if grid == nil || len(grid) == 0 || len(grid[0]) == 0 {
+		return 0
+	}
+	row := make([]int, len(grid))
+	col := make([]int, len(grid[0]))
+
+	for i := range grid {
+		for j := range grid[i] {
+			if grid[i][j] > row[i] {
+				row[i] = grid[i][j]
+			}
+			if grid[i][j] > col[j] {
+				col[j] = grid[i][j]
+			}
+		}
+	}
+
+	res := 0
+	for i := range grid {
+		for j := range grid[i] {
+			if row[i] <= col[j] {
+				if grid[i][j] < row[i] {
+					res += row[i] - grid[i][j]
+				}
+			} else {
+				if grid[i][j] < col[j] {
+					res += col[j] - grid[i][j]
+				}
+			}
+		}
+	}
+
+	return res
+}

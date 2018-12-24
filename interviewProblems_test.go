@@ -136,3 +136,14 @@ func TestNumJewelsInStones(t *testing.T) {
 	exp = 0
 	compareIntResult(exp, res, t)
 }
+
+func TestMaxIncreaseKeepingSkyline(t *testing.T) {
+	var inp [][]int
+	var res int
+	var exp int
+
+	inp = [][]int{{3, 0, 8, 4}, {2, 4, 5, 7}, {9, 2, 6, 3}, {0, 3, 1, 0}}
+	res = maxIncreaseKeepingSkyline(inp)
+	exp = 35
+	compareIntResult(exp, res, t)
+}
