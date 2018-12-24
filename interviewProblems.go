@@ -148,3 +148,19 @@ func dirReduc(inp []string) []string {
 	}
 	return res
 }
+
+//Given a string of distinct characters J, return a count of those characters appearing in string S
+//https://leetcode.com/problems/jewels-and-stones/description/
+//simply linear time solution with map
+//beats 100% of go submissions (0 ms for 254 unit tests)
+func numJewelsInStones(J string, S string) int {
+	m := make(map[byte]int)
+	for i := range J {
+		m[J[i]] = 1
+	}
+	res := 0
+	for i := range S {
+		res += m[S[i]]
+	}
+	return res
+}

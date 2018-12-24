@@ -117,3 +117,22 @@ func compareArrResult(expec, res []string, t *testing.T) {
 		}
 	}
 }
+
+func compareIntResult(exp, res int, t *testing.T) {
+	if exp != res {
+		t.Error("result mismatch, expected", exp, "but got", res)
+	}
+}
+
+func TestNumJewelsInStones(t *testing.T) {
+	var res int
+	var exp int
+
+	res = numJewelsInStones("aAbBZ", "afuinefdsnBdasZA")
+	exp = 5
+	compareIntResult(exp, res, t)
+
+	res = numJewelsInStones("", "")
+	exp = 0
+	compareIntResult(exp, res, t)
+}
