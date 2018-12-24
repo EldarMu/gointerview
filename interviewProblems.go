@@ -205,3 +205,24 @@ func maxIncreaseKeepingSkyline(grid [][]int) int {
 
 	return res
 }
+
+// given a list of words and the morse code for the letters, many words will have the same representation
+// find all unique representations in the list
+// https://leetcode.com/problems/unique-morse-code-words/description/
+// beats 100% of golang submissions at 0 ms for 83 test cases
+func uniqueMorseRepresentations(words []string) int {
+	c := []string{".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---",
+		"-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--",
+		"-..-", "-.--", "--.."}
+	m := make(map[string]bool)
+	for i := range words {
+		w := make([]byte, 0, len(words[i])*4)
+		for j := range words[i] {
+			w = append(w, c[int(words[i][j])-int('a')]...)
+		}
+		if !m[string(w)] {
+			m[string(w)] = true
+		}
+	}
+	return len(m)
+}

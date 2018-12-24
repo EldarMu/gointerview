@@ -147,3 +147,14 @@ func TestMaxIncreaseKeepingSkyline(t *testing.T) {
 	exp = 35
 	compareIntResult(exp, res, t)
 }
+
+func TestUniqueMorseRepresentations(t *testing.T) {
+	var inp []string
+	var exp int
+	var res int
+
+	inp = []string{"gin", "zen", "gig", "msg"}
+	exp = 2
+	res = uniqueMorseRepresentations(inp)
+	compareIntResult(exp, res, t)
+}
