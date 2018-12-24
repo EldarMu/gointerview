@@ -55,40 +55,40 @@ func shortestToChar(s string, c byte) []int {
 // https://leetcode.com/problems/backspace-string-compare/
 // 0 ms, beats 100% of go submissions
 func backspaceCompare(S string, T string) bool {
-	sIndex := len(S) - 1
-	tIndex := len(T) - 1
-	for sIndex > -1 && tIndex > -1 {
-		sIndex = getIndOfNextChar(S, sIndex)
-		tIndex = getIndOfNextChar(T, tIndex)
-		if sIndex == -1 || tIndex == -1 {
+	sx := len(S) - 1
+	tx := len(T) - 1
+	for sx > -1 && tx > -1 {
+		sx = nextCharX(S, sx)
+		tx = nextCharX(T, tx)
+		if sx == -1 || tx == -1 {
 			break
 		}
-		if S[sIndex] != T[tIndex] {
+		if S[sx] != T[tx] {
 			return false
 		}
-		sIndex--
-		tIndex--
+		sx--
+		tx--
 	}
-	if sIndex > -1 && getIndOfNextChar(S, sIndex) > -1 {
+	if sx > -1 && nextCharX(S, sx) > -1 {
 		return false
 	}
-	if tIndex > -1 && getIndOfNextChar(T, tIndex) > -1 {
+	if tx > -1 && nextCharX(T, tx) > -1 {
 		return false
 	}
 	return true
 }
 
-func getIndOfNextChar(S string, index int) int {
+func nextCharX(S string, X int) int {
 	backCount := 0
-	for index > -1 && (backCount != 0 || S[index] == '#') {
-		if S[index] == '#' {
+	for X > -1 && (backCount != 0 || S[X] == '#') {
+		if S[X] == '#' {
 			backCount++
 		} else {
 			backCount--
 		}
-		index--
+		X--
 	}
-	return index
+	return X
 }
 
 // remove duplicates from sorted array in-place, return size of sub-array with sorted vals
@@ -124,9 +124,9 @@ func sumOfLeftLeaves(root *TreeNode) int {
 	return sum
 }
 
-//redundant directions problem
-//https://www.codewars.com/kata/directions-reduction/train/go
-//no performance data from codewars
+// redundant directions problem
+// https://www.codewars.com/kata/directions-reduction/train/go
+// no performance data from codewars
 func dirReduc(inp []string) []string {
 	revDir := map[string]string{
 		"NORTH": "SOUTH",
@@ -149,10 +149,10 @@ func dirReduc(inp []string) []string {
 	return res
 }
 
-//Given a string of distinct characters J, return a count of those characters appearing in string S
-//https://leetcode.com/problems/jewels-and-stones/description/
-//simply linear time solution with map
-//beats 100% of go submissions (0 ms for 254 unit tests)
+// Given a string of distinct characters J, return a count of those characters appearing in string S
+// https://leetcode.com/problems/jewels-and-stones/description/
+// simply linear time solution with map
+// beats 100% of go submissions (0 ms for 254 unit tests)
 func numJewelsInStones(J string, S string) int {
 	m := make(map[byte]int)
 	for i := range J {
@@ -165,11 +165,11 @@ func numJewelsInStones(J string, S string) int {
 	return res
 }
 
-//given a 2d array of positive ints, find by how much all the elements in the array can be increased
-//while preserving the maximum value of each row and column
-//https://leetcode.com/problems/max-increase-to-keep-city-skyline/description/
-//this solution assumes a non-jagged slice of slices
-//beats 100% of go solutions at 8 ms for 133 test cases
+// given a 2d array of positive ints, find by how much all the elements in the array can be increased
+// while preserving the maximum value of each row and column
+// https://leetcode.com/problems/max-increase-to-keep-city-skyline/description/
+// this solution assumes a non-jagged slice of slices
+// beats 100% of go solutions at 8 ms for 133 test cases
 func maxIncreaseKeepingSkyline(grid [][]int) int {
 	if grid == nil || len(grid) == 0 || len(grid[0]) == 0 {
 		return 0
