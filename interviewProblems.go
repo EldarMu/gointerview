@@ -226,3 +226,16 @@ func uniqueMorseRepresentations(words []string) int {
 	}
 	return len(m)
 }
+
+// calculate sum of a and b without using + or -
+// using bit operations is pretty straightforward here
+// https://leetcode.com/problems/sum-of-two-integers/
+func getSum(a int, b int) int {
+	carry := 0
+	for b != 0 {
+		carry = (a & b) << 1
+		a = a ^ b
+		b = carry
+	}
+	return a
+}

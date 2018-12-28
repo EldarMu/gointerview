@@ -158,3 +158,21 @@ func TestUniqueMorseRepresentations(t *testing.T) {
 	res = uniqueMorseRepresentations(inp)
 	compareIntResult(exp, res, t)
 }
+
+func TestGetSum(t *testing.T) {
+	var res int
+	var exp int
+
+	exp = 0
+	res = getSum(2, -2)
+	compareIntResult(exp, res, t)
+
+	exp = 5
+	res = getSum(2, 3)
+	compareIntResult(exp, res, t)
+
+	exp = 3
+	res = getSum(1, 2)
+	compareIntResult(exp, res, t)
+
+}
