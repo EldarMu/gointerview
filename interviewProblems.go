@@ -4,6 +4,7 @@ package gointerview
 import (
 	"container/heap"
 	dataStructs "gointerview/datastructs"
+	"sort"
 )
 
 type TreeNode = dataStructs.TreeNode
@@ -267,6 +268,43 @@ func topKFrequent(nums []int, k int) []int {
 	res := make([]int, 0, k)
 	for j := 0; j < k; j++ {
 		res = append(res, heap.Pop(&pq).(*ValCount).Value)
+	}
+	return res
+}
+
+// beats 100% of golang submissions
+// at 20 ms for 21 test cases
+func altTopKFrequent(nums []int, k int) []int {
+	vMap := make(map[int]int)
+	for _, i := range nums {
+		vMap[i]++
+	}
+
+	counts := make([]int, 0)
+	cMap := make(map[int][]int)
+	for v, c := range vMap {
+		if len(cMap[c]) == 0 {
+			counts = append(counts, c)
+		}
+		cMap[c] = append(cMap[c], v)
+	}
+
+	res := make([]int, 0, k)
+
+	sort.Ints(counts)
+	add := 0
+	ind := len(counts) - 1
+	for add < k && ind >= 0 {
+		vs := cMap[counts[ind]]
+		sort.Ints(vs)
+		for _, i := range vs {
+			if add == k {
+				return res
+			}
+			res = append(res, i)
+			add++
+		}
+		ind--
 	}
 	return res
 }

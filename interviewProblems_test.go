@@ -208,3 +208,24 @@ func TestTopKFrequent(t *testing.T) {
 	res = topKFrequent(inp, 1)
 	compareIntArrResult(exp, res, t)
 }
+
+func TestAltTopKFrequent(t *testing.T) {
+	var inp []int
+	var res []int
+	var exp []int
+
+	inp = []int{1, 1, 1, 2, 2, 3}
+	exp = []int{1, 2}
+	res = altTopKFrequent(inp, 2)
+	compareIntArrResult(exp, res, t)
+
+	inp = []int{5, 2, 5, 3, 5, 3, 1, 1, 3}
+	exp = []int{3, 5}
+	res = altTopKFrequent(inp, 2)
+	compareIntArrResult(exp, res, t)
+
+	inp = []int{1}
+	exp = []int{1}
+	res = altTopKFrequent(inp, 1)
+	compareIntArrResult(exp, res, t)
+}
