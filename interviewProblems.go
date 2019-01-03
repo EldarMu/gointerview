@@ -2,10 +2,13 @@
 package gointerview
 
 import (
+	"container/heap"
 	dataStructs "gointerview/datastructs"
 )
 
 type TreeNode = dataStructs.TreeNode
+type ValCount = dataStructs.ValCount
+type PriorityQueue = dataStructs.PriorityQueue
 
 // shortestToChar is a function that, given a string and a character,
 // returns an int arr that shows the distance
@@ -238,4 +241,32 @@ func getSum(a int, b int) int {
 		b = carry
 	}
 	return a
+}
+
+// return k most frequent elements in slice
+// https://leetcode.com/problems/top-k-frequent-elements/description/
+// let's try with a maxheap
+// beats 40% of golang submissions at 24 ms for 21 test cases
+// also pretty awful to read
+func topKFrequent(nums []int, k int) []int {
+	m := make(map[int]*ValCount)
+	ok := false
+	pq := make(PriorityQueue, 0, len(nums))
+	for i := range nums {
+		_, ok = m[nums[i]]
+		if ok {
+			vc := m[nums[i]]
+			pq.Update(vc, m[nums[i]].Count+1)
+
+		} else {
+			item := &ValCount{Value: nums[i], Count: 1, Index: -1}
+			m[nums[i]] = item
+			pq.Push(item)
+		}
+	}
+	res := make([]int, 0, k)
+	for j := 0; j < k; j++ {
+		res = append(res, heap.Pop(&pq).(*ValCount).Value)
+	}
+	return res
 }

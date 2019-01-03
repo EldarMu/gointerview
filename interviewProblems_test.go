@@ -98,15 +98,27 @@ func TestDirReduc(t *testing.T) {
 	inp = []string{"NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "NORTH"}
 	expec = []string{"NORTH"}
 	res = dirReduc(inp)
-	compareArrResult(expec, res, t)
+	compareStrArrResult(expec, res, t)
 
 	inp = []string{"SOUTH", "SOUTH", "WEST", "NORTH", "WEST"}
 	expec = []string{"SOUTH", "SOUTH", "WEST", "NORTH", "WEST"}
 	res = dirReduc(inp)
-	compareArrResult(expec, res, t)
+	compareStrArrResult(expec, res, t)
 }
 
-func compareArrResult(expec, res []string, t *testing.T) {
+func compareStrArrResult(expec, res []string, t *testing.T) {
+	if len(expec) != len(res) {
+		t.Error("size mismatch between expected array size", len(expec), "and result size", len(res))
+	} else {
+		for i := range expec {
+			if expec[i] != res[i] {
+				t.Error("result mismatch at index", i, "expected", expec[i], "got", res[i])
+			}
+		}
+	}
+}
+
+func compareIntArrResult(expec, res []int, t *testing.T) {
 	if len(expec) != len(res) {
 		t.Error("size mismatch between expected array size", len(expec), "and result size", len(res))
 	} else {
@@ -174,5 +186,25 @@ func TestGetSum(t *testing.T) {
 	exp = 3
 	res = getSum(1, 2)
 	compareIntResult(exp, res, t)
+}
 
+func TestTopKFrequent(t *testing.T) {
+	var inp []int
+	var res []int
+	var exp []int
+
+	inp = []int{5, 2, 5, 3, 5, 3, 1, 1, 3}
+	exp = []int{3, 5}
+	res = topKFrequent(inp, 2)
+	compareIntArrResult(exp, res, t)
+
+	inp = []int{1, 1, 1, 2, 2, 3}
+	exp = []int{1, 2}
+	res = topKFrequent(inp, 2)
+	compareIntArrResult(exp, res, t)
+
+	inp = []int{1}
+	exp = []int{1}
+	res = topKFrequent(inp, 1)
+	compareIntArrResult(exp, res, t)
 }
