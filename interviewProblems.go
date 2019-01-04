@@ -7,9 +7,13 @@ import (
 	"sort"
 )
 
-// bringing in data types defined in separate package
+// TreeNode is a basic container for a binary tree with an int value
 type TreeNode = dataStructs.TreeNode
+
+// ValCount is a container for int values and their corresponding counts in some sort of array
 type ValCount = dataStructs.ValCount
+
+// PriorityQueue is a data structure for working with a maxheap
 type PriorityQueue = dataStructs.PriorityQueue
 
 // shortestToChar is a function that, given a string and a character,
@@ -335,4 +339,25 @@ func recurBuildMaxBinTree(nums []int, start int, end int) *TreeNode {
 		cur.Right = recurBuildMaxBinTree(nums, mxInd+1, end)
 	}
 	return cur
+}
+
+// given a two dimensional matrix of ones and zeros, flip it horizontally, then invert the values
+// https://leetcode.com/problems/flipping-an-image
+// beats 100% of golang submissions at 4 ms for 82 test cases
+func flipAndInvertImage(A [][]int) [][]int {
+	m := []int{1, 0}
+	var t int
+	l := len(A[0])
+	odd := l%2 != 0
+	for i := range A {
+		for j := 0; j < l/2; j++ {
+			t = A[i][l-1-j]
+			A[i][l-1-j] = m[A[i][j]]
+			A[i][j] = m[t]
+		}
+		if odd {
+			A[i][l/2] = m[A[i][l/2]]
+		}
+	}
+	return A
 }

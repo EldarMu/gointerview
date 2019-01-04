@@ -130,6 +130,16 @@ func compareIntArrResult(expec, res []int, t *testing.T) {
 	}
 }
 
+func compareIntMtrxResult(exp, res [][]int, t *testing.T) {
+	if len(exp) != len(res) {
+		t.Error("matrix size mismatch, expected", len(exp), "got", len(res))
+	} else {
+		for i := range exp {
+			compareIntArrResult(exp[i], res[i], t)
+		}
+	}
+}
+
 func compareIntResult(exp, res int, t *testing.T) {
 	if exp != res {
 		t.Error("result mismatch, expected", exp, "but got", res)
@@ -266,4 +276,20 @@ func TestConstructMaximumBinaryTree(t *testing.T) {
 
 	res = constructMaximumBinaryTree(inp)
 	compareTreeResult(exp, res, t)
+}
+
+func TestFlipAndInvertImage(t *testing.T) {
+	var inp [][]int
+	var exp [][]int
+	var res [][]int
+
+	inp = [][]int{{1, 1, 0}, {1, 0, 1}, {0, 0, 0}}
+	exp = [][]int{{1, 0, 0}, {0, 1, 0}, {1, 1, 1}}
+	res = flipAndInvertImage(inp)
+	compareIntMtrxResult(exp, res, t)
+
+	inp = [][]int{{1, 1, 0, 0}, {1, 0, 0, 1}, {0, 1, 1, 1}, {1, 0, 1, 0}}
+	exp = [][]int{{1, 1, 0, 0}, {0, 1, 1, 0}, {0, 0, 0, 1}, {1, 0, 1, 0}}
+	res = flipAndInvertImage(inp)
+	compareIntMtrxResult(exp, res, t)
 }
