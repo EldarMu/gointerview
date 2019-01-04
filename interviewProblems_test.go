@@ -136,6 +136,26 @@ func compareIntResult(exp, res int, t *testing.T) {
 	}
 }
 
+func compareTreeResult(exp, res *TreeNode, t *testing.T) {
+	if exp == nil && res == nil {
+		return
+	} else if exp == nil && res != nil {
+		t.Error("tree mismatch, expected end of branch, got", res.Val)
+	} else if exp != nil && res == nil {
+		t.Error("tree mismatch at tree node with value", exp.Val, "result cuts off branch")
+	} else if exp.Val != res.Val {
+		t.Error("tree mismatch at tree node with val", exp.Val, "result was", res.Val)
+	} else {
+		if exp.Left != nil {
+			compareTreeResult(exp.Left, res.Left, t)
+		}
+		if exp.Right != nil {
+			compareTreeResult(exp.Right, res.Right, t)
+		}
+	}
+
+}
+
 func TestNumJewelsInStones(t *testing.T) {
 	var res int
 	var exp int
@@ -228,4 +248,22 @@ func TestAltTopKFrequent(t *testing.T) {
 	exp = []int{1}
 	res = altTopKFrequent(inp, 1)
 	compareIntArrResult(exp, res, t)
+}
+
+func TestConstructMaximumBinaryTree(t *testing.T) {
+	var inp []int
+	var exp *TreeNode
+	var res *TreeNode
+
+	inp = []int{3, 2, 1, 6, 0, 5}
+
+	exp = &TreeNode{Val: 6}
+	exp.Left = &TreeNode{Val: 3}
+	exp.Right = &TreeNode{Val: 5}
+	exp.Left.Right = &TreeNode{Val: 2}
+	exp.Right.Left = &TreeNode{Val: 0}
+	exp.Left.Right.Right = &TreeNode{Val: 1}
+
+	res = constructMaximumBinaryTree(inp)
+	compareTreeResult(exp, res, t)
 }

@@ -7,6 +7,7 @@ import (
 	"sort"
 )
 
+// bringing in data types defined in separate package
 type TreeNode = dataStructs.TreeNode
 type ValCount = dataStructs.ValCount
 type PriorityQueue = dataStructs.PriorityQueue
@@ -307,4 +308,31 @@ func altTopKFrequent(nums []int, k int) []int {
 		ind--
 	}
 	return res
+}
+
+// given an array of numbers, build a maximum binary tree in the following way:
+// the max value becomes the root, the max value of the array slice to its left becomes
+// the left child, and so forth..
+// https://leetcode.com/problems/maximum-binary-tree/
+// beats 100% of golang submissions at 68 ms for 107 test cases
+func constructMaximumBinaryTree(nums []int) *TreeNode {
+	return recurBuildMaxBinTree(nums, 0, len(nums)-1)
+}
+
+func recurBuildMaxBinTree(nums []int, start int, end int) *TreeNode {
+	mxInd := start
+	for i := start; i <= end; i++ {
+		if nums[i] > nums[mxInd] {
+			mxInd = i
+		}
+	}
+
+	cur := &TreeNode{Val: nums[mxInd]}
+	if start <= mxInd-1 {
+		cur.Left = recurBuildMaxBinTree(nums, start, mxInd-1)
+	}
+	if mxInd+1 <= end {
+		cur.Right = recurBuildMaxBinTree(nums, mxInd+1, end)
+	}
+	return cur
 }
