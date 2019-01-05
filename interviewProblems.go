@@ -361,3 +361,21 @@ func flipAndInvertImage(A [][]int) [][]int {
 	}
 	return A
 }
+
+// given an array of ints and a sum,
+// return indices of the two ints that together produce the sum
+// guaranteed only one valid sol'n
+// https://leetcode.com/problems/two-sum
+// beats 100% of golang submissions at 4 ms for 29 test cases
+func twoSum(nums []int, target int) []int {
+	mi := make(map[int]int, len(nums))
+	for i, v := range nums {
+		x, ok := mi[target-v]
+		if ok {
+			return []int{x, i}
+		} else {
+			mi[v] = i
+		}
+	}
+	return []int{-1, -1}
+}

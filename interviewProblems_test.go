@@ -293,3 +293,14 @@ func TestFlipAndInvertImage(t *testing.T) {
 	res = flipAndInvertImage(inp)
 	compareIntMtrxResult(exp, res, t)
 }
+
+func TestTwoSum(t *testing.T) {
+	var inp []int
+	var exp []int
+	var res []int
+
+	inp = []int{2, 7, 11, 15}
+	exp = []int{0, 1}
+	res = twoSum(inp, 9)
+	compareIntArrResult(exp, res, t)
+}
