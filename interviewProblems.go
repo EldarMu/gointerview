@@ -376,9 +376,9 @@ func twoSum(nums []int, target int) []int {
 		x, ok := mi[target-v]
 		if ok {
 			return []int{x, i}
-		} else {
-			mi[v] = i
 		}
+		mi[v] = i
+
 	}
 	return []int{-1, -1}
 }
