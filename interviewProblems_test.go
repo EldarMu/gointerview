@@ -130,6 +130,19 @@ func compareIntArrResult(expec, res []int, t *testing.T) {
 	}
 }
 
+func genLN(a []int) *ListNode {
+	head := new(ListNode)
+	cur := head
+	for i, v := range a {
+		cur.Val = v
+		if i != len(a)-1 {
+			cur.Next = new(ListNode)
+			cur = cur.Next
+		}
+	}
+	return head
+}
+
 func compareIntMtrxResult(exp, res [][]int, t *testing.T) {
 	if len(exp) != len(res) {
 		t.Error("matrix size mismatch, expected", len(exp), "got", len(res))
@@ -163,7 +176,23 @@ func compareTreeResult(exp, res *TreeNode, t *testing.T) {
 			compareTreeResult(exp.Right, res.Right, t)
 		}
 	}
+}
 
+func compareListNodeResult(exp, res *ListNode, t *testing.T) {
+	for exp != nil || res != nil {
+		if exp == nil {
+			t.Error("Result list goes too long, final value of result was", res.Val)
+			return
+		} else if res == nil {
+			t.Error("Result list cuts short, last expected value was", exp.Val)
+			return
+		}
+		if exp.Val != res.Val {
+			t.Error("list value mismatch, expected", exp.Val, "got", res.Val)
+		}
+		exp = exp.Next
+		res = res.Next
+	}
 }
 
 func TestNumJewelsInStones(t *testing.T) {
@@ -303,4 +332,30 @@ func TestTwoSum(t *testing.T) {
 	exp = []int{0, 1}
 	res = twoSum(inp, 9)
 	compareIntArrResult(exp, res, t)
+}
+
+func TestAddTwoNumbers(t *testing.T) {
+	var l1 *ListNode
+	var l2 *ListNode
+	var exp *ListNode
+	var res *ListNode
+
+	l1 = &ListNode{Val: 0}
+	l2 = genLN([]int{1, 8})
+	exp = genLN([]int{1, 8})
+	res = addTwoNumbers(l1, l2)
+	compareListNodeResult(exp, res, t)
+
+	l1 = &ListNode{Val: 5}
+	l2 = &ListNode{Val: 5}
+	exp = genLN([]int{0, 1})
+	res = addTwoNumbers(l1, l2)
+	compareListNodeResult(exp, res, t)
+
+	l1 = genLN([]int{2, 4, 7})
+	l2 = genLN([]int{5, 6, 4})
+	exp = genLN([]int{7, 0, 2, 1})
+	res = addTwoNumbers(l1, l2)
+	compareListNodeResult(exp, res, t)
+
 }

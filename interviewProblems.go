@@ -10,6 +10,9 @@ import (
 // TreeNode is a basic container for a binary tree with an int value
 type TreeNode = dataStructs.TreeNode
 
+// ListNode is a basic container for a singly-linked list with an int value
+type ListNode = dataStructs.ListNode
+
 // ValCount is a container for int values and their corresponding counts in some sort of array
 type ValCount = dataStructs.ValCount
 
@@ -378,4 +381,47 @@ func twoSum(nums []int, target int) []int {
 		}
 	}
 	return []int{-1, -1}
+}
+
+// given two numbers in reverse order as two singly linked lists (e.g. 3->4->2 == 243)
+// add them
+// https://leetcode.com/problems/add-two-numbers
+// 1563 test cases in 20 ms
+// unable to verify code speed due to graphs being down
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	carry := false
+	head := new(ListNode)
+	cur := head
+	v1 := 0
+	v2 := 0
+	vt := 0
+	for l1 != nil || l2 != nil || carry {
+		if l1 != nil {
+			v1 = l1.Val
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			v2 = l2.Val
+			l2 = l2.Next
+		}
+		if carry {
+			vt = 1
+		}
+		vt += v1 + v2
+		if vt > 9 {
+			vt %= 10
+			carry = true
+		} else {
+			carry = false
+		}
+		cur.Val = vt
+		if l1 != nil || l2 != nil || carry {
+			cur.Next = new(ListNode)
+			cur = cur.Next
+		}
+		v1 = 0
+		v2 = 0
+		vt = 0
+	}
+	return head
 }
