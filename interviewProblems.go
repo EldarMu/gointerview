@@ -425,3 +425,27 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 	return head
 }
+
+// given a string, return the length of the longest substring with no repeating characters
+// https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
+// 987 unit tests in 16 ms, can't get speed results due to graphs being down
+func lengthOfLongestSubstring(s string) int {
+	m := make(map[uint8]bool)
+	l := 0
+	t := 0
+	res := 0
+	for i := range s {
+		c := s[i]
+		for m[c] {
+			m[s[t]] = false
+			t++
+			l--
+		}
+		m[c] = true
+		l++
+		if res < l {
+			res = l
+		}
+	}
+	return res
+}

@@ -357,5 +357,25 @@ func TestAddTwoNumbers(t *testing.T) {
 	exp = genLN([]int{7, 0, 2, 1})
 	res = addTwoNumbers(l1, l2)
 	compareListNodeResult(exp, res, t)
+}
 
+func TestLengthOfLongestSubstring(t *testing.T) {
+	var in string
+	var exp int
+	var res int
+
+	in = "abcabcbb"
+	exp = 3
+	res = lengthOfLongestSubstring(in)
+	compareIntResult(exp, res, t)
+
+	in = "bbbbbbbb"
+	exp = 1
+	res = lengthOfLongestSubstring(in)
+	compareIntResult(exp, res, t)
+
+	in = "pwwkew"
+	exp = 3
+	res = lengthOfLongestSubstring(in)
+	compareIntResult(exp, res, t)
 }
