@@ -2,12 +2,13 @@
 package gointerview
 
 import (
+	"strings"
 	"testing"
 )
 
-//the following are unit tests for the functions in interviewProblems
-//in the same order as the functions
-//
+// the following are unit tests for the functions in interviewProblems
+// in the same order as the functions
+
 func TestShortestToChar(t *testing.T) {
 	expected := [12]int{3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0}
 	var result = shortestToChar("loveleetcode", 'e')
@@ -195,6 +196,15 @@ func compareListNodeResult(exp, res *ListNode, t *testing.T) {
 	}
 }
 
+func compareStrings(exp, res string, t *testing.T) {
+	if len(exp) != len(res) {
+		t.Error("length mismatch, expected", len(exp), "but got", len(res))
+	}
+	if strings.Compare(exp, res) != 0 {
+		t.Error("zig zagging failed, expected", exp, "but got", res)
+	}
+}
+
 func TestNumJewelsInStones(t *testing.T) {
 	var res int
 	var exp int
@@ -378,4 +388,28 @@ func TestLengthOfLongestSubstring(t *testing.T) {
 	exp = 3
 	res = lengthOfLongestSubstring(in)
 	compareIntResult(exp, res, t)
+}
+
+func TestZigZagConvert(t *testing.T) {
+	var in string
+	var rows int
+	var exp string
+	var res string
+
+	in = "PAYPALISHIRING"
+	rows = 3
+	exp = "PAHNAPLSIIGYIR"
+	res = zigZagConvert(in, rows)
+	compareStrings(exp, res, t)
+
+	rows = 4
+	exp = "PINALSIGYAHRPI"
+	res = zigZagConvert(in, rows)
+	compareStrings(exp, res, t)
+
+	in = "AB"
+	rows = 1
+	exp = "AB"
+	res = zigZagConvert(in, rows)
+	compareStrings(exp, res, t)
 }

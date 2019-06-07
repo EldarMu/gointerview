@@ -5,6 +5,7 @@ import (
 	"container/heap"
 	dataStructs "gointerview/datastructs"
 	"sort"
+	"strings"
 )
 
 // TreeNode is a basic container for a binary tree with an int value
@@ -428,9 +429,10 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 
 // given a string, return the length of the longest substring with no repeating characters
 // https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
-// 987 unit tests in 16 ms, can't get speed results due to graphs being down
+// refactored to use a bool array of size 128
+// 987 unit tests in 4 ms, can't get speed results due to graphs being down, but quadrupled speed
 func lengthOfLongestSubstring(s string) int {
-	m := make(map[uint8]bool)
+	var m [128]bool
 	l := 0
 	t := 0
 	res := 0
@@ -448,4 +450,42 @@ func lengthOfLongestSubstring(s string) int {
 		}
 	}
 	return res
+}
+
+// convert zig-zag text (string, with number of rows it's spread on)
+// into the resulting flat string with rows read top to bottom
+// https://leetcode.com/problems/zigzag-conversion/description/
+// text first goes down, with 1 per row, then up diagonally, and repeat
+// 8 ms sol'n, this took 5 times longer in java
+func zigZagConvert(s string, numRows int) string {
+	if numRows < 2 {
+		return s
+	}
+	var rows = []strings.Builder{}
+
+	for i := 0; i < numRows; i++ {
+		rows = append(rows, strings.Builder{})
+	}
+
+	row := 0
+	down := true
+	for _, c := range s {
+		rows[row].WriteRune(c)
+		if row == 0 {
+			down = true
+		} else if row == numRows-1 {
+			down = false
+		}
+
+		if down {
+			row++
+		} else {
+			row--
+		}
+	}
+
+	for i := 1; i < len(rows); i++ {
+		rows[0].WriteString(rows[i].String())
+	}
+	return rows[0].String()
 }
