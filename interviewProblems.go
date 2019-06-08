@@ -461,11 +461,7 @@ func zigZagConvert(s string, numRows int) string {
 	if numRows < 2 {
 		return s
 	}
-	var rows = []strings.Builder{}
-
-	for i := 0; i < numRows; i++ {
-		rows = append(rows, strings.Builder{})
-	}
+	rows := make([]strings.Builder, len(s))
 
 	row := 0
 	down := true
