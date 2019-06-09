@@ -436,3 +436,55 @@ func TestHighAndLow(t *testing.T) {
 	res = HighAndLow(in)
 	compareStrings(exp, res, t)
 }
+
+func TestDigPow(t *testing.T) {
+	var n int
+	var p int
+	var res int
+	var exp int
+
+	n = 10383
+	p = 6
+	exp = 12933
+	res = DigPow(n, p)
+	if exp != res {
+		t.Error("incorrect result, expected", exp, "but got", res)
+	}
+
+	n = 89
+	p = 1
+	exp = 1
+	res = DigPow(n, p)
+	if exp != res {
+		t.Error("incorrect result, expected", exp, "but got", res)
+	}
+
+	n = 91
+	p = 1
+	exp = -1
+	res = DigPow(n, p)
+	if exp != res {
+		t.Error("incorrect result, expected", exp, "but got", res)
+	}
+
+	n = 695
+	p = 2
+	exp = 2
+	res = DigPow(n, p)
+	if exp != res {
+		t.Error("incorrect result, expected", exp, "but got", res)
+	}
+
+	n = 46288
+	p = 3
+	exp = 51
+	res = DigPow(n, p)
+	n = 695
+	p = 2
+	exp = 2
+	res = DigPow(n, p)
+	if exp != res {
+		t.Error("incorrect result, expected", exp, "but got", res)
+	}
+
+}

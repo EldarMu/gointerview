@@ -488,9 +488,10 @@ func zigZagConvert(s string, numRows int) string {
 	return rows[0].String()
 }
 
-// solution to https://www.codewars.com/kata/highest-and-lowest/go
+// HighAndLow is a function that,
 // given a string consisting of valid space separated int32 values
 // return a string with the max value and the min value, space separated
+// solution to https://www.codewars.com/kata/highest-and-lowest/go
 // unfortunately codewars has no speed measurements
 func HighAndLow(in string) string {
 	min := math.MaxInt32
@@ -513,4 +514,32 @@ func HighAndLow(in string) string {
 	}
 
 	return maxStr + " " + minStr
+}
+
+// DigPow should, given a number n consisting of digits a,b,c,d (e.g. 1,3,4 = 134) and an int p
+// find if there is a number k such that (a^p + b^(p+1) + c ^(p+2))/k = n
+// https://www.codewars.com/kata/playing-with-digits/train/go
+func DigPow(n, p int) int {
+	dig := p
+	for tmp := n; tmp >= 10; tmp /= 10 {
+		dig++
+	}
+
+	var sum int
+
+	for tmp := n; tmp > 0; tmp /= 10 {
+		v := tmp % 10
+		cv := 1
+		for i := 0; i < dig; i++ {
+			cv *= v
+		}
+		sum += cv
+		dig--
+	}
+
+	if sum%n == 0 {
+		return sum / n
+	}
+
+	return -1
 }
