@@ -2,6 +2,8 @@
 package gointerview
 
 import (
+	"fmt"
+	"math"
 	"strings"
 	"testing"
 )
@@ -411,5 +413,26 @@ func TestZigZagConvert(t *testing.T) {
 	rows = 1
 	exp = "AB"
 	res = zigZagConvert(in, rows)
+	compareStrings(exp, res, t)
+}
+
+func TestHighAndLow(t *testing.T) {
+	var in string
+	var exp string
+	var res string
+
+	in = "8 3 -5 42 -1 0 0 -9 4 7 4 -4"
+	exp = "42 -9"
+	res = HighAndLow(in)
+	compareStrings(exp, res, t)
+
+	in = "0"
+	exp = "0 0"
+	res = HighAndLow(in)
+	compareStrings(exp, res, t)
+
+	in = fmt.Sprintf("%v %v", math.MaxInt32, math.MaxInt32)
+	exp = in
+	res = HighAndLow(in)
 	compareStrings(exp, res, t)
 }

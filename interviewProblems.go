@@ -4,7 +4,9 @@ package gointerview
 import (
 	"container/heap"
 	dataStructs "gointerview/datastructs"
+	"math"
 	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -484,4 +486,31 @@ func zigZagConvert(s string, numRows int) string {
 		rows[0].WriteString(rows[i].String())
 	}
 	return rows[0].String()
+}
+
+// solution to https://www.codewars.com/kata/highest-and-lowest/go
+// given a string consisting of valid space separated int32 values
+// return a string with the max value and the min value, space separated
+// unfortunately codewars has no speed measurements
+func HighAndLow(in string) string {
+	min := math.MaxInt32
+	max := math.MinInt32
+	minStr := ""
+	maxStr := ""
+
+	strArr := strings.Split(in, " ")
+
+	for _, v := range strArr {
+		num, _ := strconv.Atoi(v)
+		if num <= min {
+			min = num
+			minStr = v
+		}
+		if num >= max {
+			max = num
+			maxStr = v
+		}
+	}
+
+	return maxStr + " " + minStr
 }
