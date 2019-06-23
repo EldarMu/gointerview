@@ -544,6 +544,9 @@ func DigPow(n, p int) int {
 	return -1
 }
 
+// ToCamelCase converts strings of format word-word-word
+// or word_word_word to wordWordWord
+// or WordWordWord (if first word was previously capitalized)
 func ToCamelCase(s string) string {
 	sb := strings.Builder{}
 
@@ -560,7 +563,7 @@ func ToCamelCase(s string) string {
 	return sb.String()
 }
 
-// given a total volume, find out if the volume is precisely a sum of cubes
+// CalculateCubeSum calculates whether a given volume is precisely a sum of cubes
 // of progressively larger numbers 1...n
 // return n if it exists, else -1
 func CalculateCubeSum(m int) int {
@@ -578,7 +581,6 @@ func CalculateCubeSum(m int) int {
 
 	if rem == 0 {
 		return vol - 1
-	} else {
-		return -1
 	}
+	return -1
 }
