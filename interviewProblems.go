@@ -584,3 +584,55 @@ func CalculateCubeSum(m int) int {
 	}
 	return -1
 }
+
+// DecodeMorse decodes a string encoded in morse code
+// out of the top 20 solutions on codewars, it appears
+// that I'm the only one that went with replacing between-word spaces
+// with a unique char
+func DecodeMorse(morseCode string) string {
+	MorseCode := map[string]string{
+		" ":    " ",
+		"·−":   "A",
+		"−···": "B",
+		"−·−·": "C",
+		"−··":  "D",
+		"·":    "E",
+		"··−·": "F",
+		"−−·":  "G",
+		"····": "H",
+		"··":   "I",
+		"·−−−": "J",
+		"−·−":  "K",
+		"·−··": "L",
+		"−−":   "M",
+		"−·":   "N",
+		"−−−":  "O",
+		"·−−·": "P",
+		"−−·−": "Q",
+		"·−·":  "R",
+		"···":  "S",
+		"−":    "T",
+		"··−":  "U",
+		"···−": "V",
+		"·−−":  "W",
+		"−··−": "X",
+		"−·−−": "Y",
+		"−−··": "Z",
+	}
+
+	b := strings.Builder{}
+	str := strings.Trim(morseCode, " ")
+	str = strings.Replace(str, "   ", " X ", -1)
+	arr := strings.Split(str, " ")
+	b.Grow(len(arr) * 4)
+	for _, s := range arr {
+		if s == "X" {
+			b.WriteString(" ")
+		} else {
+			x := MorseCode[s]
+			b.WriteString(x)
+		}
+	}
+
+	return b.String()
+}

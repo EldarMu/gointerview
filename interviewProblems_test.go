@@ -200,10 +200,10 @@ func compareListNodeResult(exp, res *ListNode, t *testing.T) {
 
 func compareStrings(exp, res string, t *testing.T) {
 	if len(exp) != len(res) {
-		t.Error("length mismatch, expected", len(exp), "but got", len(res))
+		t.Errorf("length mismatch, expected %d but got %d", len(exp), len(res))
 	}
 	if strings.Compare(exp, res) != 0 {
-		t.Error("zig zagging failed, expected", exp, "but got", res)
+		t.Errorf("string mismatch, expected %s but got %s", exp, res)
 	}
 }
 
@@ -540,4 +540,25 @@ func TestCalculateCubeSum(t *testing.T) {
 	if exp != res {
 		t.Errorf("incorrect result for %d, expected %d but got %d", in, exp, res)
 	}
+}
+
+func TestDecodeMorse(t *testing.T) {
+	var in string
+	var exp string
+	var res string
+
+	in = "···· · −·−−   ·−−− ··− −·· ·"
+	exp = "HEY JUDE"
+	res = DecodeMorse(in)
+	compareStrings(exp, res, t)
+
+	in = "·−··            ·−··"
+	exp = "L    L"
+	res = DecodeMorse(in)
+	compareStrings(exp, res, t)
+
+	in = "   "
+	exp = ""
+	res = DecodeMorse(in)
+	compareStrings(exp, res, t)
 }
