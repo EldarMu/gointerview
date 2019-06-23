@@ -543,3 +543,42 @@ func DigPow(n, p int) int {
 
 	return -1
 }
+
+func ToCamelCase(s string) string {
+	sb := strings.Builder{}
+
+	f := func(c rune) bool {
+		return c == '_' || c == '-'
+	}
+	strArr := strings.FieldsFunc(s, f)
+	sb.WriteString(strArr[0])
+
+	for i := 1; i < len(strArr); i++ {
+		sb.WriteString(strings.Title(strArr[i]))
+	}
+
+	return sb.String()
+}
+
+// given a total volume, find out if the volume is precisely a sum of cubes
+// of progressively larger numbers 1...n
+// return n if it exists, else -1
+func CalculateCubeSum(m int) int {
+	if m == 0 {
+		return 0
+	} else if m < 0 {
+		return -1
+	}
+	rem := m
+	vol := 1
+	for rem > 0 {
+		rem -= vol * vol * vol
+		vol++
+	}
+
+	if rem == 0 {
+		return vol - 1
+	} else {
+		return -1
+	}
+}

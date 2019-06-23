@@ -488,3 +488,56 @@ func TestDigPow(t *testing.T) {
 	}
 
 }
+
+func TestToCamelCase(t *testing.T) {
+	var in string
+	var exp string
+	var res string
+
+	in = "The_Silent_Guardian"
+	exp = "TheSilentGuardian"
+	res = ToCamelCase(in)
+	compareStrings(exp, res, t)
+
+	in = "the-Silent-guardian"
+	exp = "theSilentGuardian"
+	res = ToCamelCase(in)
+	compareStrings(exp, res, t)
+}
+
+func TestCalculateCubeSum(t *testing.T) {
+	var in int
+	var exp int
+	var res int
+
+	in = 1071225
+	exp = 45
+	res = CalculateCubeSum(in)
+	if exp != res {
+		t.Errorf("incorrect result for %d, expected %d but got %d", in, exp, res)
+	}
+	in = 91716553919377
+	exp = -1
+	res = CalculateCubeSum(in)
+	if exp != res {
+		t.Errorf("incorrect result for %d, expected %d but got %d", in, exp, res)
+	}
+	in = 3025
+	exp = 10
+	res = CalculateCubeSum(in)
+	if exp != res {
+		t.Errorf("incorrect result for %d, expected %d but got %d", in, exp, res)
+	}
+	in = -3025
+	exp = -1
+	res = CalculateCubeSum(in)
+	if exp != res {
+		t.Errorf("incorrect result for %d, expected %d but got %d", in, exp, res)
+	}
+	in = 0
+	exp = 0
+	res = CalculateCubeSum(in)
+	if exp != res {
+		t.Errorf("incorrect result for %d, expected %d but got %d", in, exp, res)
+	}
+}
