@@ -636,3 +636,55 @@ func DecodeMorse(morseCode string) string {
 
 	return b.String()
 }
+
+// LongestConsec looks for the longest sum of k consecutive string lengths
+// and returns them as a single string
+func LongestConsec(strarr []string, k int) string {
+	if strarr == nil || len(strarr) == 0 || k > len(strarr) || k == 0 {
+		return ""
+	}
+	longest := 0
+	start := 0
+	for i := 0; i < k; i++ {
+		longest += len(strarr[i])
+	}
+	cur := longest
+	for i := k; i < len(strarr); i++ {
+		cur -= len(strarr[i-k])
+		cur += len(strarr[i])
+		if cur > longest {
+			start = i - k + 1
+			longest = cur
+		}
+	}
+
+	b := strings.Builder{}
+	for i := start; i < start+k; i++ {
+		b.WriteString(strarr[i])
+	}
+	return b.String()
+}
+
+// MaximumSubarraySum finds the biggest sum of a contiguous subarray
+func MaximumSubarraySum(numbers []int) int {
+	biggestVal := 0
+	for i := 0; i < len(numbers); i++ {
+		if numbers[i] > 0 {
+			cur := i
+			curSum := 0
+			for cur < len(numbers) {
+				curSum += numbers[cur]
+				if biggestVal < curSum {
+					biggestVal = curSum
+				}
+				if curSum <= 0 {
+					break
+				} else {
+					cur++
+				}
+			}
+			i = cur
+		}
+	}
+	return biggestVal
+}

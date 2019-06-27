@@ -562,3 +562,76 @@ func TestDecodeMorse(t *testing.T) {
 	res = DecodeMorse(in)
 	compareStrings(exp, res, t)
 }
+
+func TestLongestConsec(t *testing.T) {
+	var in []string
+	var exp string
+	var lngth int
+	var res string
+
+	in = []string{"ejjjjmmtthh", "zxxuueeg", "aanlljrrrxx", "dqqqaaabbb", "oocccffuucccjjjkkkjyyyeehh"}
+	lngth = 1
+	exp = "oocccffuucccjjjkkkjyyyeehh"
+	res = LongestConsec(in, lngth)
+	compareStrings(exp, res, t)
+
+	in = []string{"zone", "abigail", "theta", "form", "libe", "zas"}
+	lngth = 2
+	exp = "abigailtheta"
+	res = LongestConsec(in, lngth)
+	compareStrings(exp, res, t)
+
+	in = []string{"itvayloxrp", "wkppqsztdkmvcuwvereiupccauycnjutlv", "vweqilsfytihvrzlaodfixoyxvyuyvgpck"}
+	lngth = 2
+	exp = "wkppqsztdkmvcuwvereiupccauycnjutlvvweqilsfytihvrzlaodfixoyxvyuyvgpck"
+	res = LongestConsec(in, lngth)
+	compareStrings(exp, res, t)
+}
+
+func TestMaximumSubarraySum(t *testing.T) {
+	var in []int
+	var exp int
+	var res int
+
+	in = []int{-5, -5, -5, -5, 6}
+	exp = 6
+	res = MaximumSubarraySum(in)
+	if exp != res {
+		t.Errorf("result mismatch, expected %d but got %d", exp, res)
+	}
+
+	in = []int{-2, 1, -3, 4, -1, 2, 1, -5, 4}
+	exp = 6
+	res = MaximumSubarraySum(in)
+	if exp != res {
+		t.Errorf("result mismatch, expected %d but got %d", exp, res)
+	}
+
+	in = []int{5, -1, -1, -1, -1, 5}
+	exp = 6
+	res = MaximumSubarraySum(in)
+	if exp != res {
+		t.Errorf("result mismatch, expected %d but got %d", exp, res)
+	}
+
+	in = []int{7, -20, -5, -2, -4}
+	exp = 7
+	res = MaximumSubarraySum(in)
+	if exp != res {
+		t.Errorf("result mismatch, expected %d but got %d", exp, res)
+	}
+
+	in = []int{}
+	exp = 0
+	res = MaximumSubarraySum(in)
+	if exp != res {
+		t.Errorf("result mismatch, expected %d but got %d", exp, res)
+	}
+
+	in = []int{-2, -1, -3, -4, -1, -2, -1, -5, -4}
+	exp = 0
+	res = MaximumSubarraySum(in)
+	if exp != res {
+		t.Errorf("result mismatch, expected %d but got %d", exp, res)
+	}
+}
